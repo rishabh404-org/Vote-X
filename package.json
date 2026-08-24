@@ -1,0 +1,28 @@
+{
+  "name": "vote-x",
+  "version": "1.0.0",
+  "description": "Vote-X Cryptographic Online Voting System with Biometric MFA and Immutable Audit Ledger",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "sync": "node scripts/auto-sync.js --once",
+    "auto-sync": "node scripts/auto-sync.js --watch",
+    "watch": "node scripts/auto-sync.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rishabh404-org/Vote-X.git"
+  },
+  "keywords": [
+    "voting",
+    "cryptography",
+    "democracy",
+    "sha256",
+    "biometrics",
+    "blockchain",
+    "webgl",
+    "threejs"
+  ],
+  "author": "rishabh404-org",
+  "license": "MIT"
+}

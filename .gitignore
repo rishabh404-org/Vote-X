@@ -12,9 +12,16 @@ yarn-error.log*
 *.key
 *.cert
 *.pfx
+*.p12
+*.pkcs12
+*.token
+*.secret
+id_rsa
+id_rsa.pub
 secrets/
 config/secrets.*
 credentials.json
+auth.json
 
 # Operating System & IDE Files
 .DS_Store
@@ -30,3 +37,4 @@ desktop.ini
 tmp/
 temp/
 .cache/
+.system_generated/
