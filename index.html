@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html class="scroll-smooth light" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>VOTE-X | Next-Generation Cryptographic Online Voting System</title>
+  
+  <!-- Meta & SEO Tags -->
+  <meta name="description" content="Vote-X is a secure, transparent, and modern online voting platform powered by end-to-end cryptographic encryption and multi-factor biometric authentication." />
+  <meta name="theme-color" content="#0a0c1b" />
+  
+  <!-- Tailwind CSS CDN with forms & container queries -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Google Fonts: Inter & Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  
+  <!-- Three.js for 3D Cryptographic Vault Simulation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Tailwind Configuration matching Secure-Flow Design System -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#630ed4",
+            "primary-hover": "#5a00c6",
+            "primary-container": "#7c3aed",
+            "on-primary-container": "#ede0ff",
+            "primary-fixed": "#eaddff",
+            "primary-fixed-dim": "#d2bbff",
+            "on-primary-fixed": "#25005a",
+            "surface": "#f8f9ff",
+            "surface-bright": "#f8f9ff",
+            "surface-dim": "#cbdbf5",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#eff4ff",
+            "surface-container": "#e5eeff",
+            "surface-container-high": "#dce9ff",
+            "surface-container-highest": "#d3e4fe",
+            "on-surface": "#0b1c30",
+            "on-surface-variant": "#4a4455",
+            "inverse-surface": "#0a0c1b",
+            "inverse-surface-card": "#213145",
+            "inverse-on-surface": "#eaf1ff",
+            "outline": "#7b7487",
+            "outline-variant": "#ccc3d8",
+            "surface-tint": "#732ee4",
+            "secondary": "#5c5d6f",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6"
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "1.5rem",
+            "xl": "2rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-surface text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container flex flex-col min-h-screen">
+
+  <!-- =========================================================================
+       GLOBAL TOP NAVIGATION BAR
+       ========================================================================= -->
+  <nav id="main-top-nav" class="flex justify-between items-center w-full px-6 md:px-12 py-4 sticky top-0 z-50 bg-[#0a0c1b]/90 backdrop-blur-xl border-b border-white/10 shadow-lg">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="App.setView('landing')">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center text-white shadow-[0_0_15px_rgba(124,58,237,0.5)]">
+        <span class="material-symbols-outlined text-[24px]">how_to_vote</span>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-black text-2xl text-white tracking-tight leading-none">VOTE-X</span>
+        <span class="text-[10px] tracking-widest text-primary-fixed-dim uppercase font-semibold">Secure Digital Democracy</span>
+      </div>
+    </div>
+
+    <div class="hidden md:flex items-center gap-8 text-sm font-semibold">
+      <button class="text-white hover:text-primary-fixed-dim transition-colors py-1.5 px-3 rounded-lg hover:bg-white/5" onclick="App.setView('landing')">Home</button>
+      <a class="text-slate-300 hover:text-white transition-colors py-1.5 px-3 rounded-lg hover:bg-white/5" href="#how-it-works">How It Works</a>
+      <a class="text-slate-300 hover:text-white transition-colors py-1.5 px-3 rounded-lg hover:bg-white/5" href="#security">Security</a>
+      <button class="text-slate-300 hover:text-white transition-colors py-1.5 px-3 rounded-lg hover:bg-white/5" onclick="App.setView('admin')">Admin Portal</button>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <!-- Audio Toggle Button -->
+      <button class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors" onclick="App.toggleSound()" title="Toggle Sound FX">
+        <span class="material-symbols-outlined text-[20px] sound-toggle-icon">volume_up</span>
+      </button>
+
+      <!-- Admin Portal Quick Button -->
+      <button class="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors text-xs font-semibold" onclick="App.setView('admin')">
+        <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
+        Admin
+      </button>
+
+      <!-- Start Voting CTA -->
+      <button class="bg-primary hover:bg-primary-hover text-white text-xs md:text-sm font-bold px-5 py-2.5 rounded-full shadow-[0_0_20px_rgba(99,14,212,0.4)] transition-all hover:scale-105 duration-150 flex items-center gap-2" onclick="App.startVotingFlow()">
+        <span>Vote Now</span>
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       VIEW 1: LANDING PAGE & PUBLIC PORTAL
+       ========================================================================= -->
+  <div id="view-landing" class="flex-grow flex flex-col">
+    <!-- Hero Section with WebGL Shader + Three.js 3D Container -->
+    <section class="relative w-full min-h-[850px] flex items-center overflow-hidden bg-[#0a0c1b]">
+      <!-- Background Dynamic WebGL Shader -->
+      <div class="absolute inset-0 w-full h-full opacity-60 mix-blend-screen pointer-events-none">
+        <canvas id="shader-canvas-ANIMATION_4" class="w-full h-full block"></canvas>
+      </div>
+
+      <!-- Gradient Overlay for Contrast -->
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0a0c1b] via-[#0a0c1b]/80 to-transparent z-10 pointer-events-none"></div>
+
+      <!-- Hero Content -->
+      <div class="container mx-auto px-6 md:px-12 relative z-20 flex flex-col lg:flex-row items-center justify-between py-20 gap-12">
+        <div class="lg:w-7/12 flex flex-col items-start gap-6 text-white max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/40 text-primary-fixed-dim text-xs font-bold uppercase tracking-wider backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Elections 2024 Now Live & Verified
+          </div>
+
+          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
+            Your Vote.<br />
+            <span class="bg-gradient-to-r from-purple-300 via-primary-fixed-dim to-white bg-clip-text text-transparent">Your Future.</span>
+          </h1>
+
+          <p class="text-lg md:text-xl text-slate-300 font-normal leading-relaxed">
+            Secure, verifiable and frictionless online voting. Vote-X combines multi-factor biometric verification with zero-knowledge cryptography for the highest echelon of digital democracy.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 mt-2">
+            <button class="bg-primary hover:bg-primary-hover text-white font-bold text-base px-8 py-4 rounded-full transition-all shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:scale-105 flex items-center gap-3" onclick="App.startVotingFlow()">
+              <span>Cast Your Vote</span>
+              <span class="material-symbols-outlined text-[20px]">how_to_vote</span>
+            </button>
+            <a class="border border-white/20 text-white font-semibold text-base px-7 py-4 rounded-full hover:bg-white/10 transition-colors flex items-center gap-2 backdrop-blur-sm" href="#how-it-works">
+              <span>How It Works</span>
+              <span class="material-symbols-outlined text-[20px]">explore</span>
+            </a>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="mt-6 flex flex-wrap items-center gap-6 text-xs text-slate-400 font-medium">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-400 text-[20px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+              <span>256-Bit SHA Encryption</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary-fixed-dim text-[20px]" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+              <span>Biometric MFA Guard</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-blue-400 text-[20px]" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+              <span>Auditable Ledger Hash</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Three.js Interactive Torus Knot / Vault Graphic -->
+        <div class="lg:w-5/12 h-[450px] w-full relative flex items-center justify-center">
+          <div id="threejs-container-ANIMATION_5" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+          <div class="absolute bottom-2 bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full text-[11px] text-slate-400 border border-white/10 flex items-center gap-2 pointer-events-none">
+            <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+            Interactive 3D Cryptographic Vault
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Real-time Election Status Banner -->
+    <section class="bg-[#213145] text-white py-6 border-y border-white/10">
+      <div class="container mx-auto px-6 md:px-12 flex flex-wrap items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]"></div>
+          <div>
+            <h3 class="font-bold text-sm text-white">National General Election 2024</h3>
+            <p class="text-xs text-slate-300">Polls open until 20:00 UTC • Real-time vote tallying active</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="text-right">
+            <span class="text-xs text-slate-400 uppercase font-semibold">Demo Voter ID</span>
+            <span class="block font-mono font-bold text-primary-fixed-dim text-sm">VTX-8921</span>
+          </div>
+          <button class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-lg border border-white/20 transition-all" onclick="App.startVotingFlow('VTX-8921')">
+            Instant Test Vote
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-24 bg-surface relative" id="how-it-works">
+      <div class="container mx-auto px-6 md:px-12 max-w-6xl">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-3">
+            Simple 3-Step Process
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-on-surface tracking-tight mb-4">How Online Voting Works</h2>
+          <p class="text-base text-secondary">Engineered for absolute voter anonymity, institutional security, and effortless usability.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          <!-- Step 1 Card -->
+          <div class="glass-card rounded-2xl p-8 flex flex-col items-center text-center shadow-lg hover:-translate-y-2 transition-transform duration-300 relative group bg-white border border-slate-200">
+            <div class="w-16 h-16 rounded-full bg-primary-container text-white flex items-center justify-center mb-6 shadow-md border-4 border-white">
+              <span class="material-symbols-outlined text-[32px]">badge</span>
+            </div>
+            <span class="absolute top-4 left-4 text-slate-200 font-black text-4xl pointer-events-none group-hover:text-primary-fixed-dim transition-colors">01</span>
+            <h3 class="text-xl font-bold text-on-surface mb-2">Verify Identity</h3>
+            <p class="text-sm text-secondary leading-relaxed">Enter your registered Voter ID (e.g. VTX-8921). The system automatically checks your active constituency eligibility.</p>
+          </div>
+
+          <!-- Step 2 Card -->
+          <div class="glass-card rounded-2xl p-8 flex flex-col items-center text-center shadow-lg hover:-translate-y-2 transition-transform duration-300 relative group bg-white border border-slate-200">
+            <div class="w-16 h-16 rounded-full bg-primary-container text-white flex items-center justify-center mb-6 shadow-md border-4 border-white">
+              <span class="material-symbols-outlined text-[32px]">fingerprint</span>
+            </div>
+            <span class="absolute top-4 left-4 text-slate-200 font-black text-4xl pointer-events-none group-hover:text-primary-fixed-dim transition-colors">02</span>
+            <h3 class="text-xl font-bold text-on-surface mb-2">2FA Authentication</h3>
+            <p class="text-sm text-secondary leading-relaxed">Authenticate with an instantaneous 6-digit SMS OTP followed by biometric touch/face verification.</p>
+          </div>
+
+          <!-- Step 3 Card -->
+          <div class="glass-card rounded-2xl p-8 flex flex-col items-center text-center shadow-lg hover:-translate-y-2 transition-transform duration-300 relative group bg-white border border-slate-200">
+            <div class="w-16 h-16 rounded-full bg-primary-container text-white flex items-center justify-center mb-6 shadow-md border-4 border-white">
+              <span class="material-symbols-outlined text-[32px]">how_to_vote</span>
+            </div>
+            <span class="absolute top-4 left-4 text-slate-200 font-black text-4xl pointer-events-none group-hover:text-primary-fixed-dim transition-colors">03</span>
+            <h3 class="text-xl font-bold text-on-surface mb-2">Cast Encrypted Vote</h3>
+            <p class="text-sm text-secondary leading-relaxed">Select your candidate, review your ballot, and generate a tamper-evident cryptographic receipt on the public ledger.</p>
+          </div>
+        </div>
+
+        <div class="mt-16 text-center">
+          <button class="bg-primary hover:bg-primary-hover text-white font-bold px-8 py-4 rounded-full shadow-lg transition-all hover:scale-105 inline-flex items-center gap-2" onclick="App.startVotingFlow()">
+            <span>Enter Voting Booth Now</span>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Security & Architecture Section -->
+    <section class="py-20 bg-slate-900 text-white" id="security">
+      <div class="container mx-auto px-6 md:px-12 max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/20 text-primary-fixed-dim text-xs font-bold uppercase tracking-wider mb-4">
+              Cryptographic Safeguards
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-6">Zero-Knowledge Trust & Immutability</h2>
+            <p class="text-slate-300 text-base mb-6 leading-relaxed">
+              Vote-X separates voter identity from the cast ballot. Using client-side SHA-256 hashing, each ballot is anonymized, cryptographically sealed, and chained into a tamper-evident audit ledger.
+            </p>
+
+            <div class="space-y-4">
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-white">Ballot Secrecy Guarantee</h4>
+                  <p class="text-xs text-slate-400 mt-1">Neither election officials nor network sniffers can link your vote back to your real identity.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+                <div class="w-10 h-10 rounded-lg bg-primary/30 text-primary-fixed-dim flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined">verified</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-white">Verifiable Receipt Tokens</h4>
+                  <p class="text-xs text-slate-400 mt-1">Every voter receives a unique cryptographic Transaction ID to audit that their ballot was tallied without revealing their choice.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+                <div class="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined">block</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-white">Double-Voting Prevention</h4>
+                  <p class="text-xs text-slate-400 mt-1">Single-use state locks ensure no voter can submit duplicate ballots under any circumstance.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Voter Verification Widget -->
+          <div class="glass-card-dark rounded-3xl p-8 border border-white/10 shadow-2xl">
+            <h3 class="text-xl font-bold text-white mb-2">Check Voter Registration</h3>
+            <p class="text-xs text-slate-300 mb-6">Enter your Voter ID to verify status and start voting immediately.</p>
+
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Voter ID Number</label>
+                <div class="relative">
+                  <input type="text" id="landing-voter-check-input" placeholder="e.g. VTX-8921" value="VTX-8921" class="w-full bg-black/40 border border-white/20 rounded-xl px-4 py-3.5 text-white font-mono text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none uppercase" />
+                  <button class="absolute right-2 top-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-semibold text-slate-300" onclick="App.fillDemoVoter('VTX-8921')">Demo</button>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-2 text-xs text-slate-400">
+                <span>Quick demo IDs:</span>
+                <button class="text-primary-fixed-dim hover:underline font-mono" onclick="document.getElementById('landing-voter-check-input').value='VTX-8921'">VTX-8921</button>
+                <span>•</span>
+                <button class="text-primary-fixed-dim hover:underline font-mono" onclick="document.getElementById('landing-voter-check-input').value='VTX-5102'">VTX-5102</button>
+                <span>•</span>
+                <button class="text-primary-fixed-dim hover:underline font-mono" onclick="document.getElementById('landing-voter-check-input').value='VTX-7744'">VTX-7744</button>
+              </div>
+
+              <button class="w-full bg-primary hover:bg-primary-hover text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 mt-4" onclick="App.startVotingFlow(document.getElementById('landing-voter-check-input').value)">
+                <span>Verify & Proceed to Voting</span>
+                <span class="material-symbols-outlined">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full py-12 px-6 md:px-12 mt-auto bg-[#0a0c1b] border-t border-white/10 text-slate-400">
+      <div class="container mx-auto max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+            <span class="material-symbols-outlined text-[18px]">how_to_vote</span>
+          </div>
+          <span class="font-extrabold text-xl text-white tracking-tight">VOTE-X</span>
+          <span class="text-xs text-slate-500">© 2024 Secure Flow Voting Architecture</span>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-6 text-xs font-semibold">
+          <button class="hover:text-white transition-colors" onclick="App.setView('admin')">Admin Console</button>
+          <button class="hover:text-white transition-colors" onclick="App.toggleSound()">Toggle Sound</button>
+          <button class="hover:text-white transition-colors" onclick="App.resetAllData()">Reset Demo Data</button>
+          <a class="hover:text-white transition-colors" href="#security">Cryptographic Specs</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 2: TRANSACTIONAL VOTING FLOW (5 STEPS + CONFIRMATION)
+       ========================================================================= -->
+  <div id="view-voting" class="hidden flex-grow flex-col items-center justify-center p-4 sm:p-6 md:p-12">
+    <!-- Exit / Back to Home link -->
+    <div class="w-full max-w-[800px] mb-4 flex justify-between items-center">
+      <button class="inline-flex items-center gap-1.5 text-slate-600 hover:text-primary font-semibold text-xs transition-colors" onclick="App.setView('landing')">
+        <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+        Return to Portal Home
+      </button>
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-xs font-mono font-bold text-slate-500">SECURE SESSION ENCRYPTED</span>
+      </div>
+    </div>
+
+    <!-- STEP 1: IDENTITY VERIFICATION -->
+    <div id="voting-step-1" class="w-full max-w-[800px] flex flex-col items-center">
+      <div class="glass-card rounded-[2rem] p-8 md:p-12 w-full flex flex-col items-center text-center bg-white shadow-xl border border-slate-200">
+        <!-- Step Header -->
+        <div class="flex items-center gap-3 w-full mb-8 pb-4 border-b border-slate-100">
+          <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0">1</div>
+          <h1 class="font-bold text-xl sm:text-2xl text-on-surface">Voter Identity Verification</h1>
+        </div>
+
+        <!-- Stepper -->
+        <div class="w-full max-w-xl mx-auto mb-10 flex items-center justify-between relative px-2">
+          <div class="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -z-10 -translate-y-1/2"></div>
+          
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-md">1</div>
+            <span class="text-[11px] font-bold text-primary">Identity</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-xs">2</div>
+            <span class="text-[11px] font-medium text-slate-400">OTP</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-xs">3</div>
+            <span class="text-[11px] font-medium text-slate-400">Biometric</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-xs">4</div>
+            <span class="text-[11px] font-medium text-slate-400">Vote</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-xs">5</div>
+            <span class="text-[11px] font-medium text-slate-400">Done</span>
+          </div>
+        </div>
+
+        <!-- Central Icon -->
+        <div class="w-20 h-20 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-6 shadow-inner">
+          <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">badge</span>
+        </div>
+
+        <h2 class="text-2xl font-bold text-on-surface mb-2">Enter Your Voter ID</h2>
+        <p class="text-sm text-secondary mb-8 max-w-md">Please enter your government-issued Voter ID card number to retrieve your active polling authorization.</p>
+
+        <!-- Input Box -->
+        <div class="w-full max-w-md space-y-4 mb-8">
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-4 top-4 text-slate-400">credit_card</span>
+            <input type="text" id="voter-id-input" placeholder="e.g. VTX-8921" class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 bg-slate-50 text-center font-mono text-lg font-bold uppercase tracking-wider text-on-surface focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 transition-all outline-none" />
+          </div>
+
+          <!-- Quick Fill Badges -->
+          <div class="flex items-center justify-center gap-2 text-xs text-slate-500">
+            <span>Try Demo IDs:</span>
+            <button class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-primary-fixed hover:text-primary font-mono font-bold transition-colors" onclick="App.fillDemoVoter('VTX-8921')">VTX-8921</button>
+            <button class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-primary-fixed hover:text-primary font-mono font-bold transition-colors" onclick="App.fillDemoVoter('VTX-5102')">VTX-5102</button>
+            <button class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-primary-fixed hover:text-primary font-mono font-bold transition-colors" onclick="App.fillDemoVoter('VTX-7744')">VTX-7744</button>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <button class="w-full max-w-md h-14 rounded-xl bg-primary hover:bg-primary-hover text-white font-bold text-base flex items-center justify-center gap-2 shadow-lg transition-all hover:scale-[1.02]" onclick="VotingFlow.submitIdentity()">
+          <span>Verify & Send OTP</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: OTP VERIFICATION -->
+    <div id="voting-step-2" class="hidden w-full max-w-[800px] flex-col items-center">
+      <div class="glass-card rounded-[2rem] p-8 md:p-12 w-full flex flex-col items-center text-center bg-white shadow-xl border border-slate-200">
+        <!-- Step Header -->
+        <div class="flex items-center gap-3 w-full mb-8 pb-4 border-b border-slate-100">
+          <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0">2</div>
+          <h1 class="font-bold text-xl sm:text-2xl text-on-surface">OTP Two-Factor Authentication</h1>
+        </div>
+
+        <!-- Stepper -->
+        <div class="w-full max-w-xl mx-auto mb-10 flex items-center justify-between relative px-2">
+          <div class="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -z-10 -translate-y-1/2"></div>
+          
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-[11px] font-medium text-slate-500">Identity</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-md">2</div>
+            <span class="text-[11px] font-bold text-primary">OTP</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-xs">3</div>
+            <span class="text-[11px] font-medium text-slate-400">Biometric</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-xs">4</div>
+            <span class="text-[11px] font-medium text-slate-400">Vote</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-xs">5</div>
+            <span class="text-[11px] font-medium text-slate-400">Done</span>
+          </div>
+        </div>
+
+        <!-- Central Icon -->
+        <div class="w-20 h-20 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-6 shadow-inner">
+          <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">smartphone</span>
+        </div>
+
+        <h2 class="text-2xl font-bold text-on-surface mb-2">Enter 6-Digit OTP</h2>
+        <p class="text-sm text-secondary mb-8 max-w-sm">
+          We have dispatched a verification code to your registered mobile number:
+          <strong id="otp-masked-phone" class="block font-bold text-on-surface mt-1 text-base font-mono">+91 98******42</strong>
+        </p>
+
+        <!-- 6 OTP Input Boxes -->
+        <div class="flex items-center gap-2 sm:gap-3 mb-8 w-full justify-center">
+          <input class="otp-input w-11 h-14 sm:w-13 sm:h-16 rounded-xl border-2 border-slate-200 bg-slate-50 text-center text-2xl font-bold text-on-surface transition-all outline-none" maxlength="1" type="number" autofocus />
+          <input class="otp-input w-11 h-14 sm:w-13 sm:h-16 rounded-xl border-2 border-slate-200 bg-slate-50 text-center text-2xl font-bold text-on-surface transition-all outline-none" maxlength="1" type="number" />
+          <input class="otp-input w-11 h-14 sm:w-13 sm:h-16 rounded-xl border-2 border-slate-200 bg-slate-50 text-center text-2xl font-bold text-on-surface transition-all outline-none" maxlength="1" type="number" />
+          <input class="otp-input w-11 h-14 sm:w-13 sm:h-16 rounded-xl border-2 border-slate-200 bg-slate-50 text-center text-2xl font-bold text-on-surface transition-all outline-none" maxlength="1" type="number" />
+          <input class="otp-input w-11 h-14 sm:w-13 sm:h-16 rounded-xl border-2 border-slate-200 bg-slate-50 text-center text-2xl font-bold text-on-surface transition-all outline-none" maxlength="1" type="number" />
+          <input class="otp-input w-11 h-14 sm:w-13 sm:h-16 rounded-xl border-2 border-slate-200 bg-slate-50 text-center text-2xl font-bold text-on-surface transition-all outline-none" maxlength="1" type="number" />
+        </div>
+
+        <!-- Timer & Resend -->
+        <p id="otp-timer-text" class="text-xs font-semibold text-primary mb-6">
+          Resend OTP in 00:30
+        </p>
+
+        <button class="w-full max-w-sm h-14 rounded-xl bg-primary hover:bg-primary-hover text-white font-bold text-base flex items-center justify-center shadow-lg transition-all hover:scale-[1.02] mb-4" onclick="VotingFlow.verifyOtp()">
+          Verify OTP
+        </button>
+
+        <div class="text-xs text-slate-500">
+          Didn't receive code?
+          <button id="otp-resend-btn" class="text-primary hover:underline font-bold bg-transparent border-none p-0 cursor-pointer pointer-events-none opacity-50" onclick="VotingFlow.resendOtp()">
+            Resend SMS
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: BIOMETRIC AUTHENTICATION -->
+    <div id="voting-step-3" class="hidden w-full max-w-[800px] flex-col items-center">
+      <div class="glass-panel rounded-[2rem] p-8 md:p-12 w-full flex flex-col items-center text-center bg-white shadow-xl border border-slate-200">
+        <!-- Step Header -->
+        <div class="flex items-center gap-3 w-full mb-8 pb-4 border-b border-slate-100">
+          <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0">3</div>
+          <h1 class="font-bold text-xl sm:text-2xl text-on-surface">Biometric Authentication</h1>
+        </div>
+
+        <!-- Stepper -->
+        <div class="w-full max-w-xl mx-auto mb-10 flex items-center justify-between relative px-2">
+          <div class="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -z-10 -translate-y-1/2"></div>
+          
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-[11px] font-medium text-slate-500">Identity</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-[11px] font-medium text-slate-500">OTP</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-md">3</div>
+            <span class="text-[11px] font-bold text-primary">Biometric</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-xs">4</div>
+            <span class="text-[11px] font-medium text-slate-400">Vote</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-xs">5</div>
+            <span class="text-[11px] font-medium text-slate-400">Done</span>
+          </div>
+        </div>
+
+        <!-- Fingerprint Scanner Animated Area -->
+        <div class="relative w-48 h-48 mb-8 flex items-center justify-center cursor-pointer group" id="biometric-scanner-area">
+          <div class="absolute inset-0 rounded-full border-2 border-primary/20"></div>
+          <div class="absolute inset-4 rounded-full border-2 border-primary/40"></div>
+          <div class="absolute inset-8 rounded-full bg-primary/5 pulse-ring"></div>
+          <div class="absolute inset-8 rounded-full bg-white shadow-md flex items-center justify-center overflow-hidden border border-slate-200">
+            <span class="material-symbols-outlined text-primary text-[80px]" style="font-variation-settings: 'wght' 200;">fingerprint</span>
+            <!-- Laser Scan Line -->
+            <div id="biometric-scan-line" class="hidden"></div>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-on-surface mb-2">Scan Your Fingerprint</h2>
+        <p class="text-sm text-secondary mb-8 max-w-sm">Place your thumb or finger on your device biometric sensor or click "Start Scanning" to authenticate.</p>
+
+        <!-- Action Button -->
+        <button id="start-scan-btn" class="w-full max-w-sm h-14 bg-primary hover:bg-primary-hover text-white font-bold text-base rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 mb-4">
+          <span>Start Scanning</span>
+          <span class="material-symbols-outlined">fingerprint</span>
+        </button>
+
+        <button class="text-xs font-semibold text-primary hover:underline flex items-center gap-1.5" onclick="App.showToast('Facial recognition backup active', 'info')">
+          <span class="material-symbols-outlined text-[16px]">face</span>
+          Use Facial ID Backup
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 4: CANDIDATE SELECTION -->
+    <div id="voting-step-4" class="hidden w-full max-w-[860px] flex-col items-center">
+      <div class="bg-white rounded-[2rem] p-8 md:p-12 w-full flex flex-col items-center shadow-xl border border-slate-200">
+        <!-- Step Header -->
+        <div class="flex items-center justify-between w-full mb-8 pb-4 border-b border-slate-100">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0">4</div>
+            <div>
+              <h1 class="font-bold text-xl sm:text-2xl text-on-surface">Choose Your Candidate</h1>
+              <p id="voting-election-title" class="text-xs text-primary font-semibold">National General Election 2024</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stepper -->
+        <div class="w-full max-w-xl mx-auto mb-10 flex items-center justify-between relative px-2">
+          <div class="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -z-10 -translate-y-1/2"></div>
+          
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-[11px] font-medium text-slate-500">Identity</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-[11px] font-medium text-slate-500">OTP</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-[11px] font-medium text-slate-500">Biometric</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-md">4</div>
+            <span class="text-[11px] font-bold text-primary">Vote</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-xs">5</div>
+            <span class="text-[11px] font-medium text-slate-400">Done</span>
+          </div>
+        </div>
+
+        <p class="text-sm text-secondary mb-8 text-center max-w-md">Please select one candidate to cast your confidential ballot. Click on any card to select.</p>
+
+        <!-- Dynamic Candidate Cards Grid -->
+        <div id="candidates-grid-container" class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full mb-8">
+          <!-- Populated dynamically by VotingFlow.renderCandidateCards() -->
+        </div>
+
+        <!-- Info Notice -->
+        <div class="w-full bg-purple-50 border border-purple-200 text-purple-900 rounded-xl p-4 flex items-center justify-center gap-2 mb-8 text-xs font-medium">
+          <span class="material-symbols-outlined text-primary text-[18px]">info</span>
+          <span>Your selection will be cryptographically encrypted prior to submission.</span>
+        </div>
+
+        <!-- Action Button -->
+        <div class="w-full flex justify-end">
+          <button class="w-full sm:w-auto min-w-[200px] h-14 bg-primary hover:bg-primary-hover text-white font-bold text-base rounded-full shadow-lg transition-all flex items-center justify-center gap-2" onclick="VotingFlow.submitCandidateSelection()">
+            <span>Continue to Review</span>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: REVIEW YOUR VOTE -->
+    <div id="voting-step-5" class="hidden w-full max-w-[800px] flex-col items-center">
+      <div class="bg-white rounded-[2rem] p-8 md:p-12 w-full flex flex-col items-center shadow-xl border border-slate-200">
+        <!-- Step Header -->
+        <div class="flex items-center gap-3 w-full mb-8 pb-4 border-b border-slate-100">
+          <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0">5</div>
+          <h1 class="font-bold text-xl sm:text-2xl text-on-surface">Review Your Choice</h1>
+        </div>
+
+        <!-- Stepper -->
+        <div class="w-full max-w-xl mx-auto mb-10 flex items-center justify-between relative px-2">
+          <div class="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -z-10 -translate-y-1/2"></div>
+          
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-[11px] font-medium text-slate-500">Identity</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-[11px] font-medium text-slate-500">OTP</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-[11px] font-medium text-slate-500">Biometric</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-[11px] font-medium text-slate-500">Vote</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 bg-white px-2">
+            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-md">5</div>
+            <span class="text-[11px] font-bold text-primary">Review</span>
+          </div>
+        </div>
+
+        <p class="text-sm text-secondary mb-8 text-center max-w-md">Please carefully review your chosen candidate before final cryptographic signing.</p>
+
+        <!-- Selected Candidate Summary Card -->
+        <div class="w-full max-w-lg bg-slate-50 border-2 border-primary rounded-2xl p-6 mb-8 shadow-sm flex items-center gap-6 relative overflow-hidden">
+          <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-white shadow-md shrink-0">
+            <img id="review-candidate-photo" src="" alt="Candidate" class="w-full h-full object-cover" />
+          </div>
+          <div class="flex-grow">
+            <div class="text-xs uppercase font-bold text-primary tracking-wider mb-0.5">Selected Candidate</div>
+            <h3 id="review-candidate-name" class="font-extrabold text-xl text-on-surface">Candidate Name</h3>
+            <p id="review-candidate-party" class="text-sm text-slate-600 font-medium">Party Name</p>
+            <p id="review-voter-constituency" class="text-xs text-slate-400 mt-1">Constituency: District 4</p>
+          </div>
+          <div class="shrink-0 text-primary">
+            <span id="review-candidate-icon" class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">park</span>
+          </div>
+        </div>
+
+        <!-- Warning Alert Banner -->
+        <div class="w-full max-w-lg bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3 mb-10">
+          <span class="material-symbols-outlined text-amber-600 text-2xl shrink-0" style="font-variation-settings: 'FILL' 1;">warning</span>
+          <div>
+            <h4 class="font-bold text-xs text-amber-900 uppercase tracking-wide">Irreversible Submission</h4>
+            <p class="text-xs text-amber-800 mt-0.5">Once you click "Confirm Vote", your ballot is permanently sealed into the immutable cryptographic ledger and cannot be altered or undone.</p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="w-full max-w-lg flex flex-col sm:flex-row gap-4">
+          <button class="flex-1 h-14 border-2 border-slate-300 hover:border-slate-400 text-slate-700 font-bold text-sm rounded-xl hover:bg-slate-50 transition-colors flex items-center justify-center" onclick="VotingFlow.showStep(4)">
+            Go Back & Change
+          </button>
+          <button id="confirm-vote-btn" class="flex-1 h-14 bg-primary hover:bg-primary-hover text-white font-bold text-base rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 hover:scale-[1.02]" onclick="VotingFlow.confirmVote()">
+            <span>Confirm Vote</span>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: VOTE SUBMITTED CONFIRMATION & RECEIPT -->
+    <div id="voting-step-6" class="hidden w-full max-w-[800px] flex-col items-center relative">
+      <!-- Confetti Canvas Container -->
+      <div id="confetti-canvas" class="confetti-container"></div>
+
+      <div class="glass-card rounded-[2rem] p-8 md:p-12 w-full flex flex-col items-center text-center bg-white shadow-2xl border border-slate-200 relative z-10">
+        <!-- Success Animated Checkmark -->
+        <div class="mt-4 mb-6">
+          <div class="success-checkmark">
+            <div class="check-icon">
+              <span class="icon-line line-tip"></span>
+              <span class="icon-line line-long"></span>
+              <div class="icon-circle"></div>
+              <div class="icon-fix"></div>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="text-3xl font-black text-on-surface mb-2 tracking-tight">Vote Submitted Successfully!</h1>
+        <p class="text-sm text-secondary mb-8 max-w-md">Your ballot has been cryptographically signed, zero-knowledge anonymized, and recorded on the public ledger.</p>
+
+        <!-- Transaction ID Box -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 w-full max-w-md mb-8 flex flex-col items-center gap-2 shadow-inner">
+          <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Cryptographic Receipt ID</span>
+          <div class="flex items-center gap-3 bg-white py-3 px-4 rounded-xl border border-slate-200 w-full justify-center shadow-sm">
+            <span id="confirmation-tx-id" class="font-mono font-black text-lg text-primary tracking-wide">VX2024-05-19-8F3A2D</span>
+            <button class="text-slate-400 hover:text-primary transition-colors p-1" onclick="VotingFlow.copyTransactionId()" title="Copy Receipt ID">
+              <span class="material-symbols-outlined text-[20px]">content_copy</span>
+            </button>
+          </div>
+          <div class="w-full flex justify-between items-center text-[11px] text-slate-400 pt-2 border-t border-slate-200/60 mt-2 font-mono">
+            <span>Timestamp: <strong id="confirmation-timestamp" class="text-slate-600 font-sans">Just now</strong></span>
+            <span>Block: <strong id="confirmation-block-hash" class="text-slate-600">#Latest</strong></span>
+          </div>
+        </div>
+
+        <!-- Action CTAs -->
+        <div class="w-full max-w-md flex flex-col gap-3">
+          <button class="w-full h-14 bg-primary hover:bg-primary-hover text-white font-bold text-base rounded-xl shadow-lg transition-all flex items-center justify-center gap-2" onclick="VotingFlow.openReceiptModal()">
+            <span class="material-symbols-outlined">receipt_long</span>
+            View Official Voting Receipt
+          </button>
+          
+          <div class="grid grid-cols-2 gap-3">
+            <button class="h-12 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5" onclick="App.setView('admin')">
+              <span class="material-symbols-outlined text-[16px]">monitoring</span>
+              View Live Turnout
+            </button>
+            <button class="h-12 border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5" onclick="App.setView('landing')">
+              <span class="material-symbols-outlined text-[16px]">home</span>
+              Return to Home
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 3: ADMIN DASHBOARD (ANALYTICS, ELECTIONS, VOTERS, LEDGER)
+       ========================================================================= -->
+  <div id="view-admin" class="hidden flex-grow flex min-h-screen bg-slate-50">
+    <!-- Admin Left Navigation Sidebar -->
+    <nav class="w-64 bg-[#0a0c1b] text-white flex flex-col py-6 border-r border-white/10 shadow-2xl shrink-0">
+      <!-- Admin Brand -->
+      <div class="px-6 mb-8 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white">
+            <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+          </div>
+          <div>
+            <span class="font-extrabold text-lg text-white tracking-tight leading-none block">VOTE-X</span>
+            <span class="text-[10px] text-primary-fixed-dim font-mono tracking-wider">ADMIN CONSOLE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="flex-1 space-y-1.5 px-3">
+        <button class="admin-nav-item w-full flex items-center gap-3 bg-primary text-white rounded-xl px-4 py-3 shadow-sm transition-all" data-tab="overview" onclick="Admin.setTab('overview')">
+          <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+          <span class="text-sm font-semibold">Dashboard</span>
+        </button>
+
+        <button class="admin-nav-item w-full flex items-center gap-3 text-slate-400 hover:text-white px-4 py-3 transition-colors hover:bg-white/5 rounded-xl" data-tab="elections" onclick="Admin.setTab('elections')">
+          <span class="material-symbols-outlined text-[20px]">how_to_vote</span>
+          <span class="text-sm font-semibold">Elections</span>
+        </button>
+
+        <button class="admin-nav-item w-full flex items-center gap-3 text-slate-400 hover:text-white px-4 py-3 transition-colors hover:bg-white/5 rounded-xl" data-tab="candidates" onclick="Admin.setTab('candidates')">
+          <span class="material-symbols-outlined text-[20px]">groups</span>
+          <span class="text-sm font-semibold">Candidates</span>
+        </button>
+
+        <button class="admin-nav-item w-full flex items-center gap-3 text-slate-400 hover:text-white px-4 py-3 transition-colors hover:bg-white/5 rounded-xl" data-tab="voters" onclick="Admin.setTab('voters')">
+          <span class="material-symbols-outlined text-[20px]">person_search</span>
+          <span class="text-sm font-semibold">Voter Registry</span>
+        </button>
+
+        <button class="admin-nav-item w-full flex items-center gap-3 text-slate-400 hover:text-white px-4 py-3 transition-colors hover:bg-white/5 rounded-xl" data-tab="ledger" onclick="Admin.setTab('ledger')">
+          <span class="material-symbols-outlined text-[20px]">enhanced_encryption</span>
+          <span class="text-sm font-semibold">Audit Ledger</span>
+        </button>
+      </div>
+
+      <!-- Footer User Profile & Exit -->
+      <div class="px-4 pt-4 border-t border-white/10 space-y-3">
+        <div class="flex items-center gap-3 px-2 py-2 rounded-xl bg-white/5 border border-white/10">
+          <div class="w-8 h-8 rounded-full bg-primary/40 text-primary-fixed-dim flex items-center justify-center font-bold text-xs">
+            AD
+          </div>
+          <div class="flex flex-col overflow-hidden">
+            <span class="text-xs font-bold text-white truncate">Chief Returning Officer</span>
+            <span class="text-[10px] text-slate-400">System Admin</span>
+          </div>
+        </div>
+
+        <button class="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/10 rounded-xl transition-all" onclick="App.setView('landing')">
+          <span class="material-symbols-outlined text-[16px]">logout</span>
+          Exit to Public Site
+        </button>
+      </div>
+    </nav>
+
+    <!-- Admin Main Canvas Area -->
+    <main class="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full overflow-y-auto">
+      <!-- Top Header -->
+      <header class="flex flex-wrap justify-between items-center gap-4 mb-8 pb-6 border-b border-slate-200">
+        <div>
+          <h1 class="text-2xl md:text-3xl font-extrabold text-on-surface tracking-tight">Elections Overview & Live Operations</h1>
+          <p class="text-xs text-secondary mt-1">Real-time election telemetry, cryptographic ledger checks, and voter turnout monitoring.</p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2 bg-white border border-slate-200 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            <span>Ledger: 100% In Sync</span>
+          </div>
+
+          <button class="bg-primary hover:bg-primary-hover text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2" onclick="Admin.exportReport()">
+            <span class="material-symbols-outlined text-[16px]">download</span>
+            Export Audit Report
+          </button>
+        </div>
+      </header>
+
+      <!-- TAB 1: OVERVIEW -->
+      <div id="admin-tab-overview" class="space-y-8">
+        <!-- 4 Key Stat Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex items-center gap-5">
+            <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">groups</span>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Total Registered</p>
+              <h3 id="admin-stat-total-voters" class="text-2xl font-black text-on-surface">12,546</h3>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex items-center gap-5">
+            <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 shrink-0">
+              <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">how_to_vote</span>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Ballots Cast</p>
+              <h3 id="admin-stat-votes-cast" class="text-2xl font-black text-on-surface">8,732</h3>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex items-center gap-5">
+            <div class="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-600 shrink-0">
+              <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">pie_chart</span>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Turnout %</p>
+              <h3 id="admin-stat-turnout-pct" class="text-2xl font-black text-on-surface">69.5%</h3>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex items-center gap-5">
+            <div class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-600 shrink-0">
+              <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">event_available</span>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Active Elections</p>
+              <h3 id="admin-stat-active-elections" class="text-2xl font-black text-on-surface">2</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar & Candidate Breakdown -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2 space-y-6">
+            <!-- Overall Turnout Progress Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+              <div class="flex justify-between items-end mb-4">
+                <div>
+                  <h3 class="font-bold text-lg text-on-surface">Live Voting Participation</h3>
+                  <p class="text-xs text-slate-500">Real-time ballots cast against total registered electorate</p>
+                </div>
+                <span id="admin-turnout-progress-label" class="font-bold text-base text-primary">69.5% Completed</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden relative shadow-inner">
+                <div id="admin-turnout-progress-fill" class="bg-gradient-to-r from-primary to-primary-container h-full rounded-full transition-all duration-700 ease-out" style="width: 69.5%"></div>
+              </div>
+              <div class="mt-3 flex justify-between items-center text-xs font-semibold text-slate-400">
+                <span>0%</span>
+                <span>50%</span>
+                <span>100% Target</span>
+              </div>
+            </div>
+
+            <!-- Candidate Live Tally Grid -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+              <div class="flex justify-between items-center mb-6">
+                <div>
+                  <h3 class="font-bold text-lg text-on-surface">Candidate Vote Standings</h3>
+                  <p class="text-xs text-slate-500">Live verified tally sorted by current leadership</p>
+                </div>
+                <button class="text-xs font-bold text-primary hover:underline" onclick="Admin.openAddCandidateModal()">+ Add Candidate</button>
+              </div>
+
+              <div id="admin-candidate-results-container" class="space-y-4">
+                <!-- Dynamically filled by Admin.renderCandidateLiveResults() -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Quick Actions & Live Activity Feed -->
+          <div class="space-y-6">
+            <!-- Quick Actions Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-base text-on-surface mb-4">Quick Operations</h3>
+              <div class="space-y-2.5">
+                <button class="w-full flex items-center justify-between p-3.5 rounded-xl border border-slate-200 hover:border-primary/50 hover:bg-primary/5 transition-all text-left" onclick="Admin.openAddElectionModal()">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                      <span class="material-symbols-outlined text-[18px]">add_box</span>
+                    </div>
+                    <span class="text-xs font-bold text-on-surface">Create New Election</span>
+                  </div>
+                  <span class="material-symbols-outlined text-slate-400 text-[18px]">chevron_right</span>
+                </button>
+
+                <button class="w-full flex items-center justify-between p-3.5 rounded-xl border border-slate-200 hover:border-primary/50 hover:bg-primary/5 transition-all text-left" onclick="Admin.openAddCandidateModal()">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                      <span class="material-symbols-outlined text-[18px]">person_add</span>
+                    </div>
+                    <span class="text-xs font-bold text-on-surface">Register Candidate</span>
+                  </div>
+                  <span class="material-symbols-outlined text-slate-400 text-[18px]">chevron_right</span>
+                </button>
+
+                <button class="w-full flex items-center justify-between p-3.5 rounded-xl border border-slate-200 hover:border-primary/50 hover:bg-primary/5 transition-all text-left" onclick="Admin.openAddVoterModal()">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                      <span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+                    </div>
+                    <span class="text-xs font-bold text-on-surface">Add Voter to Roll</span>
+                  </div>
+                  <span class="material-symbols-outlined text-slate-400 text-[18px]">chevron_right</span>
+                </button>
+
+                <button class="w-full flex items-center justify-between p-3.5 rounded-xl border border-slate-200 hover:border-primary/50 hover:bg-primary/5 transition-all text-left" onclick="Admin.setTab('ledger')">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                      <span class="material-symbols-outlined text-[18px]">verified_user</span>
+                    </div>
+                    <span class="text-xs font-bold text-on-surface">Inspect Blockchain Ledger</span>
+                  </div>
+                  <span class="material-symbols-outlined text-slate-400 text-[18px]">chevron_right</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Recent Activity Feed Card -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-base text-on-surface mb-4">Audit Stream</h3>
+              <div id="admin-activity-feed-container" class="space-y-4">
+                <!-- Dynamically filled by Admin.renderActivityFeed() -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: ELECTIONS MANAGEMENT -->
+      <div id="admin-tab-elections" class="hidden space-y-6">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex justify-between items-center mb-6">
+            <div>
+              <h3 class="font-bold text-lg text-on-surface">Elections Directory</h3>
+              <p class="text-xs text-slate-500">Configure schedules, active statuses, and election categories</p>
+            </div>
+            <button class="bg-primary hover:bg-primary-hover text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition-all flex items-center gap-1.5" onclick="Admin.openAddElectionModal()">
+              <span class="material-symbols-outlined text-[16px]">add</span>
+              New Election
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="text-xs uppercase font-bold text-slate-400 border-b border-slate-200 pb-3">
+                  <th class="py-3 px-6">Election</th>
+                  <th class="py-3 px-6">Category</th>
+                  <th class="py-3 px-6">Candidates</th>
+                  <th class="py-3 px-6">Start Date</th>
+                  <th class="py-3 px-6">Status</th>
+                  <th class="py-3 px-6 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-elections-table-body">
+                <!-- Filled dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: CANDIDATES MANAGEMENT -->
+      <div id="admin-tab-candidates" class="hidden space-y-6">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex justify-between items-center mb-6">
+            <div>
+              <h3 class="font-bold text-lg text-on-surface">Nominated Candidates</h3>
+              <p class="text-xs text-slate-500">Candidate profiles for the active election</p>
+            </div>
+            <button class="bg-primary hover:bg-primary-hover text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition-all flex items-center gap-1.5" onclick="Admin.openAddCandidateModal()">
+              <span class="material-symbols-outlined text-[16px]">person_add</span>
+              Add Candidate
+            </button>
+          </div>
+
+          <div id="admin-candidates-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Filled dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: VOTERS REGISTRY -->
+      <div id="admin-tab-voters" class="hidden space-y-6">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <div>
+              <h3 class="font-bold text-lg text-on-surface">Electoral Roll</h3>
+              <p class="text-xs text-slate-500">Search voters, check eligibility, and view transaction IDs</p>
+            </div>
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+              <input type="text" id="admin-voter-search-input" placeholder="Search by name, ID or constituency..." class="w-full sm:w-64 px-4 py-2 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none" oninput="Admin.renderVotersRegistry(StateStore.getState().voters)" />
+              <button class="bg-primary hover:bg-primary-hover text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition-all shrink-0 flex items-center gap-1.5" onclick="Admin.openAddVoterModal()">
+                <span class="material-symbols-outlined text-[16px]">add</span>
+                Register Voter
+              </button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="text-xs uppercase font-bold text-slate-400 border-b border-slate-200 pb-3">
+                  <th class="py-3 px-6">Voter ID</th>
+                  <th class="py-3 px-6">Full Name</th>
+                  <th class="py-3 px-6">Phone</th>
+                  <th class="py-3 px-6">Constituency</th>
+                  <th class="py-3 px-6">Status</th>
+                  <th class="py-3 px-6 text-right">Receipt Hash</th>
+                </tr>
+              </thead>
+              <tbody id="admin-voters-table-body">
+                <!-- Filled dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: AUDIT LEDGER BLOCKCHAIN EXPLORER -->
+      <div id="admin-tab-ledger" class="hidden space-y-6">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex justify-between items-center mb-6">
+            <div>
+              <h3 class="font-bold text-lg text-on-surface">Cryptographic Audit Ledger Explorer</h3>
+              <p class="text-xs text-slate-500">Immutable SHA-256 linked block chain verifying each cast ballot</p>
+            </div>
+            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[14px]">shield</span> Chain Verified
+            </span>
+          </div>
+
+          <div id="admin-ledger-blocks-container" class="space-y-4">
+            <!-- Dynamically populated blocks -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       MODAL 1: OFFICIAL DIGITAL VOTING RECEIPT
+       ========================================================================= -->
+  <div id="receipt-modal" class="hidden fixed inset-0 z-[999] bg-black/60 backdrop-blur-md items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl border border-slate-200 relative overflow-hidden" id="printable-receipt">
+      <!-- Top Receipt Header -->
+      <div class="flex justify-between items-start pb-6 border-b border-slate-200 mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-bold">
+            <span class="material-symbols-outlined text-[24px]">verified</span>
+          </div>
+          <div>
+            <h3 class="font-black text-xl text-on-surface leading-tight">Official Voting Certificate</h3>
+            <p class="text-xs text-slate-500 font-mono">National Electoral Commission of Vote-X</p>
+          </div>
+        </div>
+        <button class="text-slate-400 hover:text-slate-600 p-1 rounded-lg" onclick="VotingFlow.closeReceiptModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <!-- Receipt Data Grid -->
+      <div class="space-y-4 text-xs font-mono mb-6">
+        <div class="flex justify-between py-1.5 border-b border-slate-100">
+          <span class="text-slate-500 font-sans">Voter Name:</span>
+          <strong id="receipt-modal-voter-name" class="text-on-surface font-sans">Rahul Sharma</strong>
+        </div>
+        <div class="flex justify-between py-1.5 border-b border-slate-100">
+          <span class="text-slate-500 font-sans">Voter ID:</span>
+          <strong id="receipt-modal-voter-id" class="text-primary font-bold">VTX-8921</strong>
+        </div>
+        <div class="flex justify-between py-1.5 border-b border-slate-100">
+          <span class="text-slate-500 font-sans">Constituency:</span>
+          <span id="receipt-modal-constituency" class="text-slate-700 font-sans">District 4 - Metro Central</span>
+        </div>
+        <div class="flex justify-between py-1.5 border-b border-slate-100">
+          <span class="text-slate-500 font-sans">Transaction ID:</span>
+          <strong id="receipt-modal-tx-id" class="text-primary font-bold break-all">VX2024-05-19-8F3A2D</strong>
+        </div>
+        <div class="flex justify-between py-1.5 border-b border-slate-100">
+          <span class="text-slate-500 font-sans">Ballot Candidate:</span>
+          <span id="receipt-modal-candidate" class="text-slate-700 font-sans font-bold">Arjun Sharma (Progressive Party)</span>
+        </div>
+        <div class="flex flex-col py-1.5 border-b border-slate-100">
+          <span class="text-slate-500 font-sans mb-1">SHA-256 Ballot Hash:</span>
+          <span id="receipt-modal-ballot-hash" class="text-[10px] text-slate-700 bg-slate-50 p-2 rounded break-all border border-slate-200">8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4</span>
+        </div>
+        <div class="flex flex-col py-1.5 border-b border-slate-100">
+          <span class="text-slate-500 font-sans mb-1">Ledger Block Hash:</span>
+          <span id="receipt-modal-block-hash" class="text-[10px] text-slate-700 bg-slate-50 p-2 rounded break-all border border-slate-200">2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae</span>
+        </div>
+        <div class="flex justify-between py-1.5">
+          <span class="text-slate-500 font-sans">Certified Timestamp:</span>
+          <span id="receipt-modal-date" class="text-slate-600 font-sans">Sun, 19 May 2024 14:32:10 GMT</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-3">
+        <button class="flex-1 h-12 bg-primary hover:bg-primary-hover text-white font-bold text-xs rounded-xl shadow flex items-center justify-center gap-1.5" onclick="VotingFlow.printReceipt()">
+          <span class="material-symbols-outlined text-[16px]">print</span>
+          Print / Save PDF
+        </button>
+        <button class="flex-1 h-12 border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-xl" onclick="VotingFlow.closeReceiptModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL 2: ADD ELECTION MODAL (ADMIN)
+       ========================================================================= -->
+  <div id="admin-modal-add-election" class="hidden fixed inset-0 z-[999] bg-black/60 backdrop-blur-md items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-slate-200">
+      <div class="flex justify-between items-center mb-6 pb-3 border-b border-slate-100">
+        <h3 class="font-bold text-lg text-on-surface">Create New Election</h3>
+        <button class="text-slate-400 hover:text-slate-600" onclick="Admin.closeAddElectionModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Election Title</label>
+          <input type="text" id="new-election-title" placeholder="e.g. State Assembly Election 2024" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-primary outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Category</label>
+          <select id="new-election-category" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-primary outline-none">
+            <option value="National">National / Federal</option>
+            <option value="State">State / Provincial</option>
+            <option value="Municipal">Municipal / City Council</option>
+            <option value="University">University / Student Council</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Description</label>
+          <textarea id="new-election-desc" rows="3" placeholder="Election scope and bylaws..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-primary outline-none"></textarea>
+        </div>
+
+        <button class="w-full h-12 bg-primary hover:bg-primary-hover text-white font-bold text-sm rounded-xl shadow mt-2" onclick="Admin.submitNewElection()">
+          Create Election
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL 3: ADD CANDIDATE MODAL (ADMIN)
+       ========================================================================= -->
+  <div id="admin-modal-add-candidate" class="hidden fixed inset-0 z-[999] bg-black/60 backdrop-blur-md items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-slate-200">
+      <div class="flex justify-between items-center mb-6 pb-3 border-b border-slate-100">
+        <h3 class="font-bold text-lg text-on-surface">Nominate Candidate</h3>
+        <button class="text-slate-400 hover:text-slate-600" onclick="Admin.closeAddCandidateModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name</label>
+          <input type="text" id="new-candidate-name" placeholder="e.g. Maya Lin" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-primary outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Political Party</label>
+          <input type="text" id="new-candidate-party" placeholder="e.g. Green Alliance" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-primary outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Tagline / Key Manifesto</label>
+          <input type="text" id="new-candidate-tagline" placeholder="e.g. Climate Action, Public Transit, Equal Opportunity" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-primary outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Photo URL (Optional)</label>
+          <input type="url" id="new-candidate-photo" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-primary outline-none" />
+        </div>
+
+        <button class="w-full h-12 bg-primary hover:bg-primary-hover text-white font-bold text-sm rounded-xl shadow mt-2" onclick="Admin.submitNewCandidate()">
+          Register Candidate
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL 4: ADD VOTER MODAL (ADMIN)
+       ========================================================================= -->
+  <div id="admin-modal-add-voter" class="hidden fixed inset-0 z-[999] bg-black/60 backdrop-blur-md items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-slate-200">
+      <div class="flex justify-between items-center mb-6 pb-3 border-b border-slate-100">
+        <h3 class="font-bold text-lg text-on-surface">Add Voter to Roll</h3>
+        <button class="text-slate-400 hover:text-slate-600" onclick="Admin.closeAddVoterModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Voter ID</label>
+          <input type="text" id="new-voter-id" placeholder="e.g. VTX-9901" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 font-mono text-sm focus:border-primary outline-none uppercase" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Full Name</label>
+          <input type="text" id="new-voter-name" placeholder="e.g. Anita Sharma" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-primary outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Registered Phone</label>
+          <input type="tel" id="new-voter-phone" placeholder="e.g. +91 98111 22334" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-primary outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Constituency</label>
+          <input type="text" id="new-voter-constituency" placeholder="e.g. District 3 - West End" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-primary outline-none" />
+        </div>
+
+        <button class="w-full h-12 bg-primary hover:bg-primary-hover text-white font-bold text-sm rounded-xl shadow mt-2" onclick="Admin.submitNewVoter()">
+          Add to Registry
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global JavaScript Modules -->
+  <script src="js/crypto.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/shader-bg.js"></script>
+  <script src="js/three-bg.js"></script>
+  <script src="js/voting-flow.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+/* ==========================================================================
+   VOTE-X SECURE-FLOW DESIGN SYSTEM STYLES
+   ========================================================================== */
+
+:root {
+  /* Brand & Surface Colors */
+  --color-primary: #630ed4;
+  --color-primary-hover: #5a00c6;
+  --color-primary-container: #7c3aed;
+  --color-on-primary-container: #ede0ff;
+  --color-primary-fixed: #eaddff;
+  --color-primary-fixed-dim: #d2bbff;
+  --color-on-primary-fixed: #25005a;
+  
+  --color-surface: #f8f9ff;
+  --color-surface-bright: #f8f9ff;
+  --color-surface-dim: #cbdbf5;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eff4ff;
+  --color-surface-container: #e5eeff;
+  --color-surface-container-high: #dce9ff;
+  --color-surface-container-highest: #d3e4fe;
+  
+  --color-on-surface: #0b1c30;
+  --color-on-surface-variant: #4a4455;
+  --color-inverse-surface: #0a0c1b;
+  --color-inverse-surface-card: #213145;
+  --color-inverse-on-surface: #eaf1ff;
+  
+  --color-outline: #7b7487;
+  --color-outline-variant: #ccc3d8;
+  --color-surface-tint: #732ee4;
+  
+  --color-secondary: #5c5d6f;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ba1a1a;
+
+  /* Typography Scale */
+  --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Radii */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-full: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphism Styles */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 30px rgba(11, 28, 48, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.glass-card-dark {
+  background: rgba(33, 49, 69, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+/* Material Symbols Adjustments */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Animations & Scanning Effects */
+.pulse-ring {
+  animation: pulse-ring 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.scanning-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #7c3aed, #a855f7, #7c3aed, transparent);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.9);
+  animation: scan 2s ease-in-out infinite alternate;
+}
+
+@keyframes scan {
+  0% {
+    top: 10%;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 90%;
+    opacity: 0.3;
+  }
+}
+
+/* OTP Input Styles */
+.otp-input::-webkit-outer-spin-button,
+.otp-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.otp-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.otp-input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Success Animated Checkmark */
+.success-checkmark {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+}
+
+.success-checkmark .check-icon {
+  width: 90px;
+  height: 90px;
+  position: relative;
+  border-radius: 50%;
+  box-sizing: content-box;
+  border: 4px solid #10b981;
+}
+
+.success-checkmark .check-icon::before {
+  top: 3px;
+  left: -2px;
+  width: 32px;
+  transform-origin: 100% 50%;
+  border-radius: 100px 0 0 100px;
+}
+
+.success-checkmark .check-icon::after {
+  top: 0;
+  left: 32px;
+  width: 65px;
+  transform-origin: 0 50%;
+  border-radius: 0 100px 100px 0;
+  animation: rotate-circle 4.25s ease-in;
+}
+
+.success-checkmark .check-icon::before,
+.success-checkmark .check-icon::after {
+  content: '';
+  height: 110px;
+  position: absolute;
+  background: #ffffff;
+  transform: rotate(-45deg);
+}
+
+.success-checkmark .check-icon .icon-line {
+  height: 5px;
+  background-color: #10b981;
+  display: block;
+  border-radius: 3px;
+  position: absolute;
+  z-index: 10;
+}
+
+.success-checkmark .check-icon .icon-line.line-tip {
+  top: 50px;
+  left: 17px;
+  width: 26px;
+  transform: rotate(45deg);
+  animation: icon-line-tip 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.success-checkmark .check-icon .icon-line.line-long {
+  top: 42px;
+  right: 10px;
+  width: 52px;
+  transform: rotate(-45deg);
+  animation: icon-line-long 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.success-checkmark .check-icon .icon-circle {
+  top: -4px;
+  left: -4px;
+  z-index: 10;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  position: absolute;
+  box-sizing: content-box;
+  border: 4px solid rgba(16, 185, 129, 0.3);
+}
+
+.success-checkmark .check-icon .icon-fix {
+  top: 8px;
+  width: 6px;
+  left: 30px;
+  z-index: 1;
+  height: 95px;
+  position: absolute;
+  transform: rotate(-45deg);
+  background-color: #ffffff;
+}
+
+@keyframes icon-line-tip {
+  0% {
+    width: 0;
+    left: 2px;
+    top: 22px;
+  }
+  54% {
+    width: 0;
+    left: 2px;
+    top: 22px;
+  }
+  70% {
+    width: 50px;
+    left: -6px;
+    top: 40px;
+  }
+  84% {
+    width: 18px;
+    left: 24px;
+    top: 52px;
+  }
+  100% {
+    width: 26px;
+    left: 17px;
+    top: 50px;
+  }
+}
+
+@keyframes icon-line-long {
+  0% {
+    width: 0;
+    right: 50px;
+    top: 60px;
+  }
+  65% {
+    width: 0;
+    right: 50px;
+    top: 60px;
+  }
+  84% {
+    width: 60px;
+    right: 0px;
+    top: 38px;
+  }
+  100% {
+    width: 52px;
+    right: 10px;
+    top: 42px;
+  }
+}
+
+/* Confetti Container */
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  border-radius: 2px;
+}
+
+/* Candidate Card Active States */
+.candidate-radio:checked + .candidate-card {
+  border-color: #7c3aed;
+  background-color: rgba(124, 58, 237, 0.06);
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.15), 0 0 0 2px #7c3aed;
+  transform: translateY(-4px);
+}
+
+.candidate-radio:checked + .candidate-card .candidate-radio-indicator {
+  border-color: #7c3aed;
+  background-color: #7c3aed;
+}
+
+.candidate-radio:checked + .candidate-card .candidate-radio-dot {
+  opacity: 1;
+}
+
+.candidate-radio:checked + .candidate-card .candidate-img-ring {
+  ring-color: #7c3aed;
+  border-color: #7c3aed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc3d8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7b7487;
+}
+
+/* Print Styles for Voting Receipt */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-receipt, #printable-receipt * {
+    visibility: visible;
+  }
+  #printable-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 24px;
+    background: white;
+    color: black;
+  }
+}

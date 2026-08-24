@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & Sensitive Files
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.cert
+*.pfx
+secrets/
+config/secrets.*
+credentials.json
+
+# Operating System & IDE Files
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary & Cache Files
+*.log
+tmp/
+temp/
+.cache/

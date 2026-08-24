@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vote Submitted - VOTE-X</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#25005a",
+                        "on-secondary-fixed-variant": "#444657",
+                        "on-primary-container": "#ede0ff",
+                        "surface-bright": "#f8f9ff",
+                        "primary-fixed-dim": "#d2bbff",
+                        "surface": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-on-surface": "#eaf1ff",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-high": "#dce9ff",
+                        "primary-fixed": "#eaddff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#732ee4",
+                        "inverse-surface": "#213145",
+                        "secondary": "#5c5d6f",
+                        "background": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#cbdbf5",
+                        "on-primary-fixed-variant": "#5a00c6",
+                        "surface-container": "#e5eeff",
+                        "surface-container-highest": "#d3e4fe",
+                        "primary": "#630ed4",
+                        "on-tertiary-container": "#e3e6ee",
+                        "outline-variant": "#ccc3d8",
+                        "primary-container": "#7c3aed",
+                        "tertiary": "#4b4f56",
+                        "tertiary-container": "#63676e",
+                        "on-secondary-container": "#606174",
+                        "on-surface-variant": "#4a4455",
+                        "on-tertiary-fixed": "#181c21",
+                        "surface-variant": "#d3e4fe",
+                        "outline": "#7b7487",
+                        "on-tertiary-fixed-variant": "#43474d",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#dfe2ea",
+                        "secondary-container": "#dedef4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#d2bbff",
+                        "secondary-fixed": "#e1e1f7",
+                        "secondary-fixed-dim": "#c4c5da",
+                        "on-secondary-fixed": "#191a2a",
+                        "on-background": "#0b1c30",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c3c6ce"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "padding-card": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-xl": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "display-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Checkmark Animation */
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+        }
+        
+        .success-checkmark .check-icon {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 50%;
+            box-sizing: content-box;
+            border: 4px solid #4CAF50;
+        }
+        
+        .success-checkmark .check-icon::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            transform-origin: 100% 50%;
+            border-radius: 100px 0 0 100px;
+        }
+        
+        .success-checkmark .check-icon::after {
+            top: 0;
+            left: 30px;
+            width: 60px;
+            transform-origin: 0 50%;
+            border-radius: 0 100px 100px 0;
+            animation: rotate-circle 4.25s ease-in;
+        }
+        
+        .success-checkmark .check-icon::before, .success-checkmark .check-icon::after {
+            content: '';
+            height: 100px;
+            position: absolute;
+            background: #FFFFFF;
+            transform: rotate(-45deg);
+        }
+        
+        .success-checkmark .check-icon .icon-line {
+            height: 5px;
+            background-color: #4CAF50;
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+        }
+        
+        .success-checkmark .check-icon .icon-line.line-tip {
+            top: 46px;
+            left: 14px;
+            width: 25px;
+            transform: rotate(45deg);
+            animation: icon-line-tip 0.75s;
+        }
+        
+        .success-checkmark .check-icon .icon-line.line-long {
+            top: 38px;
+            right: 8px;
+            width: 47px;
+            transform: rotate(-45deg);
+            animation: icon-line-long 0.75s;
+        }
+        
+        .success-checkmark .check-icon .icon-circle {
+            top: -4px;
+            left: -4px;
+            z-index: 10;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: absolute;
+            box-sizing: content-box;
+            border: 4px solid rgba(76, 175, 80, .5);
+        }
+        
+        .success-checkmark .check-icon .icon-fix {
+            top: 8px;
+            width: 5px;
+            left: 26px;
+            z-index: 1;
+            height: 85px;
+            position: absolute;
+            transform: rotate(-45deg);
+            background-color: #FFFFFF;
+        }
+        
+        @keyframes icon-line-tip {
+            0% {
+                width: 0;
+                left: 1px;
+                top: 19px;
+            }
+            54% {
+                width: 0;
+                left: 1px;
+                top: 19px;
+            }
+            70% {
+                width: 50px;
+                left: -8px;
+                top: 37px;
+            }
+            84% {
+                width: 17px;
+                left: 21px;
+                top: 48px;
+            }
+            100% {
+                width: 25px;
+                left: 14px;
+                top: 46px;
+            }
+        }
+        
+        @keyframes icon-line-long {
+            0% {
+                width: 0;
+                right: 46px;
+                top: 54px;
+            }
+            65% {
+                width: 0;
+                right: 46px;
+                top: 54px;
+            }
+            84% {
+                width: 55px;
+                right: 0px;
+                top: 35px;
+            }
+            100% {
+                width: 47px;
+                right: 8px;
+                top: 38px;
+            }
+        }
+        
+        /* Confetti */
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden relative">
+<!-- Top Nav suppressed as this is a linear transactional flow -->
+<main class="flex-grow flex flex-col items-center justify-center p-gutter relative z-10">
+<!-- Progress Stepper -->
+<div class="w-full max-w-[800px] mb-12">
+<div class="flex items-center justify-between relative z-10">
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-label-md">
+<span class="material-symbols-outlined filled text-sm">check</span>
+</div>
+<span class="font-label-sm text-surface-tint">Identity</span>
+</div>
+<div class="flex-grow h-[2px] bg-primary mx-2"></div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-label-md">
+<span class="material-symbols-outlined filled text-sm">check</span>
+</div>
+<span class="font-label-sm text-surface-tint">OTP</span>
+</div>
+<div class="flex-grow h-[2px] bg-primary mx-2"></div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-label-md">
+<span class="material-symbols-outlined filled text-sm">check</span>
+</div>
+<span class="font-label-sm text-surface-tint">Biometric</span>
+</div>
+<div class="flex-grow h-[2px] bg-primary mx-2"></div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-label-md">
+<span class="material-symbols-outlined filled text-sm">check</span>
+</div>
+<span class="font-label-sm text-surface-tint">Vote</span>
+</div>
+<div class="flex-grow h-[2px] bg-primary mx-2"></div>
+<!-- Step 5 (Current) -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-label-md">
+                        5
+                    </div>
+<span class="font-label-sm text-surface-tint">Done</span>
+</div>
+</div>
+</div>
+<!-- Success Card -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.04)] p-padding-card w-full max-w-[800px] flex flex-col items-center text-center relative overflow-hidden">
+<div class="confetti-container" id="confetti-canvas"></div>
+<div class="mt-8 mb-6">
+<div class="success-checkmark">
+<div class="check-icon">
+<span class="icon-line line-tip"></span>
+<span class="icon-line line-long"></span>
+<div class="icon-circle"></div>
+<div class="icon-fix"></div>
+</div>
+</div>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Vote Submitted Successfully!</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Your vote has been securely recorded and encrypted.</p>
+<div class="bg-surface-container-low rounded-lg p-6 w-full max-w-md mb-8 flex flex-col items-center gap-2 border border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Transaction ID</span>
+<div class="flex items-center gap-3 bg-surface-container-lowest py-3 px-4 rounded-md border border-outline-variant/40 w-full justify-center">
+<span class="font-headline-md text-headline-md text-primary font-mono tracking-wide" id="transaction-id">VX2024-05-19-8F3A2D</span>
+<button class="text-secondary hover:text-primary transition-colors focus:outline-none" onclick="copyTransactionId()" title="Copy to clipboard">
+<span class="material-symbols-outlined">content_copy</span>
+</button>
+</div>
+<p class="font-label-sm text-label-sm text-secondary mt-2">Thank you for participating in the election.</p>
+</div>
+<button class="w-full max-w-md bg-primary hover:bg-surface-tint text-white font-label-md text-label-md py-4 rounded-lg transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2" onclick="window.location.href='#'">
+                Go to Home
+            </button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-gutter mt-auto flex flex-col md:flex-row justify-between items-center gap-6 bg-inverse-surface border-t border-outline-variant/10 text-on-primary-fixed">
+<div class="font-headline-md text-headline-md text-primary-fixed">VOTE-X</div>
+<div class="font-body-md text-body-md">© 2024 Vote-X. Secure. Transparent. Modern.</div>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-surface-variant hover:text-white hover:underline transition-all" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-surface-variant hover:text-white hover:underline transition-all" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-surface-variant hover:text-white hover:underline transition-all" href="#">Contact Support</a>
+<a class="font-label-sm text-label-sm text-surface-variant hover:text-white hover:underline transition-all" href="#">Global Standards</a>
+</div>
+</footer>
+<!-- Toast Notification (Hidden by default) -->
+<div class="fixed top-8 left-1/2 transform -translate-x-1/2 bg-inverse-surface text-on-primary rounded-full px-6 py-3 shadow-lg flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none z-50" id="toast">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="font-label-md text-label-md">Transaction ID copied!</span>
+</div>
+<script>
+        // Simple confetti effect
+        function createConfetti() {
+            const container = document.getElementById('confetti-canvas');
+            const colors = ['#7c3aed', '#630ed4', '#d2bbff', '#eaddff', '#4CAF50'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Random properties
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const animDuration = Math.random() * 3 + 2;
+                const delay = Math.random() * 2;
+                
+                confetti.style.left = `${left}%`;
+                confetti.style.top = `-10%`;
+                confetti.style.backgroundColor = color;
+                
+                // Shapes
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '50%';
+                }
+                
+                // Animation
+                confetti.animate([
+                    { transform: `translate3d(0,0,0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate3d(${Math.random()*200 - 100}px, ${window.innerHeight}px, 0) rotate(${Math.random()*360}deg)`, opacity: 0 }
+                ], {
+                    duration: animDuration * 1000,
+                    delay: delay * 1000,
+                    easing: 'cubic-bezier(.37,0,.63,1)',
+                    fill: 'forwards'
+                });
+                
+                container.appendChild(confetti);
+            }
+        }
+
+        // Run confetti on load
+        window.addEventListener('load', () => {
+            setTimeout(createConfetti, 300);
+        });
+
+        // Copy functionality
+        function copyTransactionId() {
+            const txId = document.getElementById('transaction-id').innerText;
+            navigator.clipboard.writeText(txId).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('opacity-0');
+                toast.classList.add('opacity-100');
+                
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100');
+                    toast.classList.add('opacity-0');
+                }, 3000);
+            });
+        }
+    </script>
+</body></html>
